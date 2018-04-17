@@ -1,0 +1,10 @@
+version: '3'
+services:
+  node:
+    image: node:carbon-alpine
+    command: yarn dev
+    volumes:
+      - .:/home/app
+    working_dir: /home/app
+    ports:
+      - 8000:8000
