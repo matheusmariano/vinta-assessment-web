@@ -9,6 +9,7 @@
   "dependencies": {
     "apisauce": "^0.14.1",
     "babel-polyfill": "^6.26.0",
+    "bootstrap": "^4.1.0",
     "dot-object": "^1.7.0",
     "history": "^4.7.2",
     "localforage": "^1.5.2",
