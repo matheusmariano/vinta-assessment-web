@@ -1,6 +1,17 @@
 {
+  "general": {
+    "title": "GitHub Monitor"
+  },
   "home": {
-    "page_title": "GitHub Monitor",
     "title": "GitHub Repository Monitor"
+  },
+  "dashboard": {
+    "repositories": {
+      "new": "New repository",
+      "all": "All commits",
+      "commits": {
+        "commited": "commited"
+      }
+    }
   }
 }

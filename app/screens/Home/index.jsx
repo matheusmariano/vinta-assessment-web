@@ -10,7 +10,7 @@ class HomeScreen extends Component {
   }
 
   componentWillMount() {
-    document.title = this.formatMessage({ id: 'home.page_title' });
+    document.title = this.formatMessage({ id: 'general.title' });
   }
 
   formatMessage(props) {

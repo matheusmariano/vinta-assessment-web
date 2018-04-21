@@ -8,6 +8,7 @@ import App from './App';
 import { getLocale } from '../../intl/';
 import locales from '../../intl/locales';
 import messages from '../../intl/messages';
+import { setLocale } from '../../time-ago/provider';
 import '../../intl/add-locales';
 
 class Root extends Component {
@@ -17,6 +18,10 @@ class Root extends Component {
     this.state = {
       locale: getLocale(navigator.language, R.head(locales), messages),
     };
+  }
+
+  componentWillMount() {
+    setLocale(this.state.locale);
   }
 
   render() {

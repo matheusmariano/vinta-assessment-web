@@ -1,0 +1,9 @@
+@import '../../styles/main';
+
+$main-menu-height: $nav-link-height + 2 * $navbar-padding-y;
+
+.aside {
+  border-right: 1px solid gray('300');
+  min-height: calc(100vh - #{$main-menu-height});
+}
+

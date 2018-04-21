@@ -10,6 +10,10 @@ export default function Routes() {
         exact
         path="/"
       />
+      <Route
+        component={require('../Dashboard/').default}
+        path="/dashboard"
+      />
       {/* eslint-enable */}
     </Switch>
   );
