@@ -1,12 +1,8 @@
 export default {
   /* eslint-disable global-require, import/no-dynamic-require */
-  profileRequest: username => ({
+  userSignIn: token => ({
     ok: true,
-    data: require(`../fixtures/profile_request/${username}.json`),
-  }),
-  userRepositoriesRequest: username => ({
-    ok: true,
-    data: require(`../fixtures/user_repositories_request/${username}.json`),
+    data: require(`../fixtures/user/signin.json`),
   }),
   /* eslint-enable */
 };
