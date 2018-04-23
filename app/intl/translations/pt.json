@@ -1,6 +1,12 @@
 {
   "home": {
     "page_title": "GitHub Monitor",
-    "title": "Monitorador de Repositórios do GitHub"
+    "title": "Monitorador de Repositórios do GitHub",
+    "sign_in": "Entrar com o GitHub",
+    "error": {
+      "title": "Erro",
+      "github_sign_in": "Não foi possível se conectar ao GitHub.",
+      "api_sign_in": "Não foi possível autenticar."
+    }
   }
 }

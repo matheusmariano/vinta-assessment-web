@@ -11,6 +11,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.0",
     "dot-object": "^1.7.0",
+    "firebase": "^4.13.1",
     "history": "^4.7.2",
     "localforage": "^1.5.2",
     "prop-types": "^15.6.0",
@@ -27,6 +28,7 @@
     "redux-saga": "^0.15.6",
     "reduxsauce": "^0.7.0",
     "seamless-immutable": "^7.1.2",
+    "sweetalert-react": "^0.4.11",
     "uuid": "^3.1.0"
   },
   "devDependencies": {

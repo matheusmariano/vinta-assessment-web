@@ -1,6 +1,12 @@
 {
   "home": {
     "page_title": "GitHub Monitor",
-    "title": "GitHub Repository Monitor"
+    "title": "GitHub Repository Monitor",
+    "sign_in": "Sign in with GitHub",
+    "error": {
+      "title": "Error",
+      "github_sign_in": "Could not connect with GitHub.",
+      "api_sign_in": "Could not sign in."
+    }
   }
 }
