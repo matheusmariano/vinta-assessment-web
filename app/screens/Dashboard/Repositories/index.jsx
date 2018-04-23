@@ -1,44 +1,32 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import RepositoriesActions from '../../../data/repositories/redux';
 
 class Repositories extends Component {
   static renderList(repositories) {
     return repositories.map((repository) => {
-      const path = `/dashboard/repositories/${repository.path}`;
+      const path = `/dashboard/repositories/${repository.name}`;
 
       return (
         <Link
           className="list-group-item list-group-item-action"
           href={path}
-          key={repository.path}
+          key={repository.name}
           to={path}
         >
-          {repository.path}
+          {repository.name}
         </Link>
       );
     });
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      repositories: [
-        {
-          path: 'matheusmariano/react-fission',
-        },
-        {
-          path: 'matheusmariano/pinnet',
-        },
-        {
-          path: 'matheusmariano/laravel-graphql',
-        },
-        {
-          path: 'matheusmariano/aula-multi-auth',
-        },
-      ],
-    };
+  componentWillReceiveProps({ user, requestSuccess }) {
+    if (user && requestSuccess === null) {
+      this.props.requestRepositories(user.api_token);
+    }
   }
 
   render() {
@@ -81,11 +69,50 @@ class Repositories extends Component {
               <FormattedMessage id="dashboard.repositories.all" />
             </b>
           </Link>
-          {Repositories.renderList(this.state.repositories)}
+          {Repositories.renderList(this.props.repositories)}
         </nav>
+        {this.props.requestSuccess === null && (
+          <div className="row">
+            <div className="col d-flex align-items-center justify-content-center">
+              <i className="fas fa-circle-notch fa-2x fa-spin my-2" />
+            </div>
+          </div>
+        )}
       </Fragment>
     );
   }
 }
 
-export default Repositories;
+Repositories.propTypes = {
+  user: PropTypes.shape({
+    api_token: PropTypes.string.isRequired,
+  }),
+  repositories: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      created_at: PropTypes.string.isRequired,
+      updated_at: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  requestSuccess: PropTypes.bool,
+  requestRepositories: PropTypes.func.isRequired,
+};
+
+Repositories.defaultProps = {
+  user: null,
+  requestSuccess: null,
+};
+
+const mapStateToProps = state => ({
+  user: state.user.user,
+  repositories: state.repositories.repositories,
+  requestSuccess: state.repositories.requestSuccess,
+});
+
+const mapDispatchToProps = dispatch => ({
+  requestRepositories: token => dispatch(
+    RepositoriesActions.repositoriesRequest(token),
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Repositories);

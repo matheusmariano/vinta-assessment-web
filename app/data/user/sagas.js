@@ -5,7 +5,7 @@ export default function* userSignIn(http, { token }) {
   const response = yield call(http.userSignIn, token);
 
   if (response.ok) {
-    yield put(UserActions.userSignInSuccess());
+    yield put(UserActions.userSignInSuccess(response.data));
   } else {
     yield put(UserActions.userSignInFailure());
   }

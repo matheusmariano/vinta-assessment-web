@@ -1,8 +1,8 @@
 import Actions, { INITIAL_STATE, reducer } from './redux';
 
-describe('User Redux', () => {
-  test('signIn', () => {
-    const state = reducer(INITIAL_STATE, Actions.userSignIn());
+describe('Repositories Redux', () => {
+  test('request', () => {
+    const state = reducer(INITIAL_STATE, Actions.repositoriesRequest());
 
     expect(state).toEqual(
       expect.objectContaining({
@@ -11,22 +11,22 @@ describe('User Redux', () => {
     );
   });
 
-  test('signInSuccess', () => {
-    const user = {};
+  test('requestSuccess', () => {
+    const repositories = [];
 
-    const state = reducer(INITIAL_STATE, Actions.userSignInSuccess(user));
+    const state = reducer(INITIAL_STATE, Actions.repositoriesRequestSuccess(repositories));
 
     expect(state).toEqual(
       expect.objectContaining({
-        user,
+        repositories,
         requesting: false,
         requestSuccess: true,
       }),
     );
   });
 
-  test('signInFailure', () => {
-    const state = reducer(INITIAL_STATE, Actions.userSignInFailure());
+  test('requestFailure', () => {
+    const state = reducer(INITIAL_STATE, Actions.repositoriesRequestFailure());
 
     expect(state).toEqual(
       expect.objectContaining({

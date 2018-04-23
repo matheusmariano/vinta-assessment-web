@@ -9,6 +9,11 @@ const create = (baseURL = config.api.url) => {
 
   return {
     userSignIn: token => http.post('/users', { token }),
+    repositoriesRequest: token => http.get('/repositories', {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
   };
 };
 

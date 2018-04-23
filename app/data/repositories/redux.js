@@ -2,40 +2,40 @@ import { createActions, createReducer } from 'reduxsauce';
 import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
-  userSignIn: ['token'],
-  userSignInSuccess: ['user'],
-  userSignInFailure: null,
+  repositoriesRequest: ['token'],
+  repositoriesRequestSuccess: ['repositories'],
+  repositoriesRequestFailure: null,
 });
 
-export const UserTypes = Types;
+export const RepositoriesTypes = Types;
 export default Creators;
 
 export const INITIAL_STATE = Immutable({
-  user: null,
+  repositories: [],
   requesting: false,
   requestSuccess: null,
 });
 
-export const signIn = state =>
+export const request = state =>
   state.merge({
     requesting: true,
   });
 
-export const signInSuccess = (state, { user }) =>
+export const requestSuccess = (state, { repositories }) =>
   state.merge({
-    user,
+    repositories,
     requesting: false,
     requestSuccess: true,
   });
 
-export const signInFailure = state =>
+export const requestFailure = state =>
   state.merge({
     requesting: false,
     requestSuccess: false,
   });
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [Types.USER_SIGN_IN]: signIn,
-  [Types.USER_SIGN_IN_SUCCESS]: signInSuccess,
-  [Types.USER_SIGN_IN_FAILURE]: signInFailure,
+  [Types.REPOSITORIES_REQUEST]: request,
+  [Types.REPOSITORIES_REQUEST_SUCCESS]: requestSuccess,
+  [Types.REPOSITORIES_REQUEST_FAILURE]: requestFailure,
 });
