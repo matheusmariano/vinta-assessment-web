@@ -5,6 +5,7 @@ const rootReducer = combineReducers({
   /* eslint-disable global-require */
   user: require('./user/redux').reducer,
   repositories: require('./repositories/redux').reducer,
+  commits: require('./commits/redux').reducer,
   routing: routerReducer,
   /* eslint-enable */
 });

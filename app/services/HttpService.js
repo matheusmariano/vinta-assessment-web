@@ -14,6 +14,11 @@ const create = (baseURL = config.api.url) => {
         Authorization: `Bearer ${token}`,
       },
     }),
+    commitsRequest: token => http.get('/repositories/commits', {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
   };
 };
 
