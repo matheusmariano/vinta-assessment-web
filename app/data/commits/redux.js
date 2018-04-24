@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
   commitsRequest: ['token'],
+  commitsRequestFromRepository: ['token', 'username', 'repository'],
   commitsRequestSuccess: ['commits'],
   commitsRequestFailure: null,
 });
@@ -17,6 +18,11 @@ export const INITIAL_STATE = Immutable({
 });
 
 export const request = state =>
+  state.merge({
+    requesting: true,
+  });
+
+export const requestFromRepository = state =>
   state.merge({
     requesting: true,
   });
@@ -36,6 +42,7 @@ export const requestFailure = state =>
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.COMMITS_REQUEST]: request,
+  [Types.COMMITS_REQUEST_FROM_REPOSITORY]: requestFromRepository,
   [Types.COMMITS_REQUEST_SUCCESS]: requestSuccess,
   [Types.COMMITS_REQUEST_FAILURE]: requestFailure,
 });

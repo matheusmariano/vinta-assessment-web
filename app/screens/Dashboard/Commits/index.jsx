@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import TimeAgo from 'javascript-time-ago';
 import moment from 'moment';
-import CommitsActions from '../../../data/commits/redux';
 import './styles.scss';
 
 const timeAgo = new TimeAgo('pt-BR');
@@ -33,52 +32,43 @@ class Commits extends Component {
     ));
   }
 
-  componentWillReceiveProps({ user, requestSuccess }) {
-    if (user && requestSuccess === null) {
-      this.props.commitsRequest(user.api_token);
-    }
-  }
-
   render() {
     return (
-      <ul
-        className="list-group list-group-flush row"
-        styleName="commits"
-      >
-        {Commits.renderList(this.props.commits)}
-      </ul>
+      <Fragment>
+        {this.props.requesting ? (
+          <div className="row">
+            <div className="col d-flex align-content-center justify-content-center">
+              <i className="fas fa-circle-notch fa-2x fa-spin my-3" />
+            </div>
+          </div>
+        ) : (
+          <ul
+            className="list-group list-group-flush row"
+            styleName="commits"
+          >
+            {Commits.renderList(this.props.commits)}
+          </ul>
+        )}
+      </Fragment>
     );
   }
 }
 
 Commits.propTypes = {
-  user: PropTypes.shape({
-    api_token: PropTypes.string.isRequired,
-  }),
   commits: PropTypes.arrayOf(
     PropTypes.shape({
       message: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  requestSuccess: PropTypes.bool,
-  commitsRequest: PropTypes.func.isRequired,
-};
-
-Commits.defaultProps = {
-  user: null,
-  requestSuccess: null,
+  requesting: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
-  user: state.user.user,
   commits: state.commits.commits,
-  requestSuccess: state.repositories.requestSuccess,
+  requesting: state.commits.requesting,
 });
 
-const mapDispatchToProps = dispatch => ({
-  commitsRequest: token => dispatch(
-    CommitsActions.commitsRequest(token),
-  ),
+const mapDispatchToProps = () => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Commits);

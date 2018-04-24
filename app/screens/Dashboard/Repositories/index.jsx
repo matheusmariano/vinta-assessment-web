@@ -4,9 +4,27 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import RepositoriesActions from '../../../data/repositories/redux';
+import CommitsActions from '../../../data/commits/redux';
 
 class Repositories extends Component {
-  static renderList(repositories) {
+  componentWillReceiveProps({ user, requestSuccess }) {
+    if (user && requestSuccess === null) {
+      this.props.requestRepositories(user.api_token);
+      this.props.commitsRequest(user.api_token);
+    }
+  }
+
+  loadAllCommits() {
+    this.props.commitsRequest(this.props.user.api_token);
+  }
+
+  loadCommits(repository) {
+    const r = repository.split('/');
+
+    this.props.commitsRequestFromRepository(this.props.user.api_token, r[0], r[1]);
+  }
+
+  renderList(repositories) {
     return repositories.map((repository) => {
       const path = `/dashboard/repositories/${repository.name}`;
 
@@ -15,18 +33,13 @@ class Repositories extends Component {
           className="list-group-item list-group-item-action"
           href={path}
           key={repository.name}
+          onClick={() => this.loadCommits(repository.name)}
           to={path}
         >
           {repository.name}
         </Link>
       );
     });
-  }
-
-  componentWillReceiveProps({ user, requestSuccess }) {
-    if (user && requestSuccess === null) {
-      this.props.requestRepositories(user.api_token);
-    }
   }
 
   render() {
@@ -63,13 +76,14 @@ class Repositories extends Component {
           <Link
             className="list-group-item list-group-item-action bg-light"
             href="/dashboard/repositories"
+            onClick={() => this.loadAllCommits()}
             to="/dashboard/repositories"
           >
             <b>
               <FormattedMessage id="dashboard.repositories.all" />
             </b>
           </Link>
-          {Repositories.renderList(this.props.repositories)}
+          {this.renderList(this.props.repositories)}
         </nav>
         {this.props.requestSuccess === null && (
           <div className="row">
@@ -96,6 +110,8 @@ Repositories.propTypes = {
   ).isRequired,
   requestSuccess: PropTypes.bool,
   requestRepositories: PropTypes.func.isRequired,
+  commitsRequest: PropTypes.func.isRequired,
+  commitsRequestFromRepository: PropTypes.func.isRequired,
 };
 
 Repositories.defaultProps = {
@@ -112,6 +128,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   requestRepositories: token => dispatch(
     RepositoriesActions.repositoriesRequest(token),
+  ),
+  commitsRequest: token => dispatch(
+    CommitsActions.commitsRequest(token),
+  ),
+  commitsRequestFromRepository: (token, username, repository) => dispatch(
+    CommitsActions.commitsRequestFromRepository(token, username, repository),
   ),
 });
 
