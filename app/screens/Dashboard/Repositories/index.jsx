@@ -7,7 +7,17 @@ import RepositoriesActions from '../../../data/repositories/redux';
 import CommitsActions from '../../../data/commits/redux';
 
 class Repositories extends Component {
+  componentWillMount() {
+    const { user, requestSuccess } = this.props;
+
+    this.loadRepositories({ user, requestSuccess });
+  }
+
   componentWillReceiveProps({ user, requestSuccess }) {
+    this.loadRepositories({ user, requestSuccess });
+  }
+
+  loadRepositories({ user, requestSuccess }) {
     if (user && requestSuccess === null) {
       this.props.requestRepositories(user.api_token);
       this.props.commitsRequest(user.api_token);
