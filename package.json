@@ -2,7 +2,7 @@
   "name": "github-monitor",
   "version": "0.1.0",
   "description": "GitHub Repository Monitor",
-  "main": "app/index.jsx",
+  "main": "index.jsx",
   "repository": "https://https://github.com/matheusmariano/vinta-assessment-web",
   "author": "Matheus Mariano <vmatheus.mariano@gmail.com>",
   "license": "MIT",
@@ -11,6 +11,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.0",
     "dot-object": "^1.7.0",
+    "express": "^4.16.3",
     "firebase": "^4.13.1",
     "history": "^4.7.2",
     "javascript-time-ago": "^1.0.30",
@@ -71,8 +72,10 @@
     "build": "NODE_ENV=production npx webpack",
     "dev": "npx webpack-dev-server --progress --inline",
     "fixcode": "concurrently \"npx eslint . --ext js,jsx --fix\" \"npx stylelint 'app/**/*.scss' --fix\"",
+    "heroku-postbuild": "npm run build",
     "lint": "concurrently \"npx eslint . --ext js,jsx\" \"npx stylelint 'app/**/*.scss'\"",
     "precommit": "concurrently \"npm run lint\" \"npm run test\"",
+    "start": "node index.js",
     "test": "NODE_ENV=testing npx jest"
   },
   "jest": {
