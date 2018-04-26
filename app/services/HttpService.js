@@ -14,6 +14,11 @@ const create = (baseURL = config.api.url) => {
         Authorization: `Bearer ${token}`,
       },
     }),
+    repositoriesAdd: (token, name) => http.post(`/repositories/${name}`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
     commitsRequest: token => http.get('/repositories/commits', {}, {
       headers: {
         Authorization: `Bearer ${token}`,

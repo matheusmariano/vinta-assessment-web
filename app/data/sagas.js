@@ -5,7 +5,7 @@ import { UserTypes } from './user/redux';
 import userSignIn from './user/sagas';
 
 import { RepositoriesTypes } from './repositories/redux';
-import repositoriesRequest from './repositories/sagas';
+import { repositoriesRequest, repositoriesAdd } from './repositories/sagas';
 
 import { CommitsTypes } from './commits/redux';
 import {
@@ -19,6 +19,7 @@ export default function* root() {
   yield all([
     takeLatest(UserTypes.USER_SIGN_IN, userSignIn, http),
     takeLatest(RepositoriesTypes.REPOSITORIES_REQUEST, repositoriesRequest, http),
+    takeLatest(RepositoriesTypes.REPOSITORIES_ADD, repositoriesAdd, http),
     takeLatest(CommitsTypes.COMMITS_REQUEST, commitsRequest, http),
     takeLatest(CommitsTypes.COMMITS_REQUEST_FROM_REPOSITORY, commitsRequestFromRepository, http),
   ]);

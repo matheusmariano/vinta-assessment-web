@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import AddRepository from './AddRepository/';
 import Repositories from './Repositories/';
 import Commits from './Commits/';
 import './style.scss';
@@ -30,7 +31,12 @@ class DashboardScreen extends Component {
               className="col-md-4 col-lg-3"
               styleName="aside"
             >
-              <Repositories />
+              <div className="row">
+                <div className="col">
+                  <AddRepository />
+                </div>
+              </div>
+              <Repositories className="my-3" />
             </aside>
             <section className="col-md-8 col-lg-9">
               <Commits />

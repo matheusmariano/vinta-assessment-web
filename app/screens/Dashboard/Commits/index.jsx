@@ -18,12 +18,12 @@ class Commits extends Component {
         <b>{commit.message}</b>
         <div className="media">
           <img
-            alt={commit.author.username}
+            alt={commit.author.login}
             className="rounded mr-2"
             src={commit.author.avatar_url}
           />
           <div className="media-body">
-            <b>{commit.author.username}</b>&nbsp;
+            <b>{commit.author.login}</b>&nbsp;
             <FormattedMessage id="dashboard.repositories.commits.commited" />&nbsp;
             {timeAgo.format(moment(commit.timestamp).toDate())}
           </div>
